@@ -140,7 +140,7 @@ tbody > tr:nth-of-type(even) {
 }
 
 .btn:hover {
-  background-color: rgba(69, 181, 241, 0.463);
+  background-color: rgb(23, 119, 170);
 }
 
 .success-message {
