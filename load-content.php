@@ -15,7 +15,7 @@ if ($type === 'student') {
     $punten = $puntenHandler->getPuntenByPersoonId($id);
 
     echo "<div class='card'>";
-    echo "<h2>Punten voor " . htmlspecialchars($persoon->getVoornaam() . ' ' . $persoon->getFamilienaam()) . "</h2>";
+    echo "<h2>" . htmlspecialchars($persoon->getVoornaam() . ' ' . $persoon->getFamilienaam()) . "</h2>";
     echo "<table><thead><tr><th>Module</th><th>Punt</th></tr></thead><tbody>";
     foreach ($punten as $punt) {
         echo "<tr><td>" . htmlspecialchars($punt->getModuleNaam()) . "</td><td>" . $punt->getPunt() . "</td></tr>";
@@ -27,7 +27,7 @@ if ($type === 'student') {
     $module = $moduleHandler->getModuleById($id);
 
     echo "<div class='card'>";
-    echo "<h2>Punten voor module: " . htmlspecialchars($module->getNaam()) . "</h2>";
+    echo "<h2>" . htmlspecialchars($module->getNaam()) . "</h2>";
     echo "<table><thead><tr><th>Student</th><th>Punt</th></tr></thead><tbody>";
     foreach ($punten as $p) {
         echo "<tr><td>" . htmlspecialchars($p['student']) . "</td><td>" . $p['punt'] . "</td></tr>";

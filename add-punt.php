@@ -2,7 +2,6 @@
 
 declare(strict_types = 1);
 
-//add-Punt.php
 
 require_once 'Punt.php';
 require_once 'PuntenDataHandler.php';
@@ -27,7 +26,7 @@ if (isset($_POST, $_POST['punt'], $_POST['moduleId'], $_POST['persoonId']) &&
             $puntlist->addPunt($puntObj);
             $_SESSION['success'] = "Punt is toegevoegd.";
         } else {
-            $_SESSION['error'] = "Dit persoon heeft al een punt voor dit module .";
+            $_SESSION['error'] = "Dit persoon heeft al een punt voor dit module.";
         }
     } else {
         $_SESSION['error'] = "Punt moet tussen 0 en 100.";

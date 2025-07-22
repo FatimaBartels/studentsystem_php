@@ -25,6 +25,17 @@ session_start();
 
 <form action="add-punt.php" method="post" class="punt-form">
     <div class="form-group">
+            <label for="student">Student:</label>
+            <select name="persoonId" id="student" required>
+                <option value="">.. Kies Student ..</option>
+                <?php foreach ($personen as $persoon): ?>
+                    <option value="<?= $persoon->getId(); ?>">
+                        <?= $persoon->getFamilienaam(); ?> <?= $persoon->getVoornaam(); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+    <div class="form-group">
         <label for="module">Module:</label>
         <select name="moduleId" id="module" required>
             <option value="">.. Kies Module ..</option>
@@ -32,20 +43,7 @@ session_start();
                 <option value="<?= $module->getId(); ?>"><?= $module->getNaam(); ?></option>
             <?php endforeach; ?>
         </select>
-    </div>
-
-    <div class="form-group">
-        <label for="student">Student:</label>
-        <select name="persoonId" id="student" required>
-            <option value="">.. Kies Student ..</option>
-            <?php foreach ($personen as $persoon): ?>
-                <option value="<?= $persoon->getId(); ?>">
-                    <?= $persoon->getFamilienaam(); ?> <?= $persoon->getVoornaam(); ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-    </div>
-
+    </div> 
     <div class="form-group">
         <label for="punt">Punt:</label>
         <input type="number" name="punt" id="punt" min="0" max="100" required />
