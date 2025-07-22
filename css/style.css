@@ -8,7 +8,7 @@ body {
 
 .container {
   display: flex;
-  min-height: 100vh;
+  min-height: 40vh;
 }
 
 .sidebar {
@@ -27,6 +27,7 @@ body {
   color: #ecf0f1;
   text-decoration: none;
   font-size: 15px;
+  cursor: pointer;
 }
 
 .sidebar a:hover {
@@ -62,12 +63,13 @@ h2 {
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  margin-top: 30px;
+  font-size: 0.9rem;
 }
 
 th,
 td {
-  padding: 14px;
+  padding: 10px;
   text-align: left;
   border-bottom: 1px solid #eee;
 }
@@ -75,6 +77,10 @@ td {
 th {
   background-color: #ecf0f1;
   color: #2c3e50;
+}
+
+tbody > tr:nth-of-type(even) {
+  background-color: #f9f9f9;
 }
 
 @media (max-width: 768px) {
