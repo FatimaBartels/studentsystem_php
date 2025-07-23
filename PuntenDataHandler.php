@@ -141,9 +141,7 @@ class PuntenDataHandler
         return $result;
     }
     
-   
     
-  
 
     private function connect()
     {
