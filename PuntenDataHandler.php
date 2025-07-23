@@ -13,12 +13,7 @@ class PuntenDataHandler
         $this->connect();
 
         $stmt = $this->dbh->prepare(
-            "SELECT punten.*, 
-            modules.naam AS module_naam, 
-            CONCAT(personen.voornaam, ' ', personen.familienaam) AS persoon_naam
-            FROM punten
-            JOIN modules ON punten.moduleId = modules.id
-            JOIN personen ON punten.persoonId = personen.id;"
+            "SELECT moduleId, persoonId, punt FROM punten;"
         );
 
         $stmt->execute();
@@ -29,20 +24,17 @@ class PuntenDataHandler
 
         $resultPunt = [];
         foreach ($data as $punt) {
-            $puntObj = Punt::create(
+                $resultPunt[] = Punt::create(
                 (int)$punt['moduleId'],
                 (int)$punt['persoonId'],
-                (int)$punt['punt'],
-                (int)$punt['id']
+                (int)$punt['punt']
+                
             );
-            $puntObj->setModuleNaam($punt['module_naam']);
-            $resultPunt[] = $puntObj;
         }
 
         return $resultPunt;
     }
-
-
+   
 
     public function puntToegevoegd(int $persoonId, int $moduleId): bool {
         
@@ -84,34 +76,48 @@ class PuntenDataHandler
 
     }   
     
+    /*
     public function getPuntenByModuleId(int $moduleId): array {
         $this->connect();
     
-        $stmt = $this->dbh->prepare("
-            SELECT CONCAT(personen.voornaam, ' ', personen.familienaam) AS student, punten.punt
-            FROM punten
-            JOIN personen ON punten.persoonId = personen.id
-            WHERE punten.moduleId = :moduleId
-        ");
+        $stmt = $this->dbh->prepare("SELECT * FROM punten WHERE moduleId = :moduleId");
+
         $stmt->execute([':moduleId' => $moduleId]);
     
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $this->disconnect();
         return $result;
-    }
+    }*/
     
+
+    public function getPuntenVoorModule(int $moduleId): array {
+
+        $this->connect();
+
+        $stmt = $this->dbh->prepare("SELECT moduleId, persoonId, punt FROM punten WHERE moduleId = :moduleId");
+        $stmt->execute([':moduleId' => $moduleId]);
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $this->disconnect();
+
+        $punten = [];
+        foreach ($result as $row) {
+            $punten[] = new Punt(
+                (int) $row['moduleId'],
+                (int) $row['persoonId'],
+                (int) $row['punt']
+            );
+        }
+
+        return $punten;
+}
+
 
     public function getPuntenByPersoonId(int $persoonId): array {
         $this->connect();
     
         $stmt = $this->dbh->prepare(
-            "SELECT punten.*, 
-                    modules.naam AS module_naam, 
-                    CONCAT(personen.voornaam, ' ', personen.familienaam) AS persoon_naam
-             FROM punten
-             JOIN modules ON punten.moduleId = modules.id
-             JOIN personen ON punten.persoonId = personen.id
-             WHERE punten.persoonId = :persoonId"
+            "SELECT * FROM punten WHERE persoonId = :persoonId"
         );
     
         
@@ -123,22 +129,21 @@ class PuntenDataHandler
     
         $result = [];
         foreach ($data as $punt) {
-            $puntObj = Punt::create(
+            $result[] = Punt::create(
                 (int)$punt['moduleId'],
                 (int)$punt['persoonId'],
-                (int)$punt['punt'],
-                (int)$punt['id']
+                (int)$punt['punt']
+               
             );
-            $puntObj->setModuleNaam($punt['module_naam']);
-            $result[] = $puntObj;
+           
         }
 
         return $result;
     }
     
+   
     
-    
-
+  
 
     private function connect()
     {

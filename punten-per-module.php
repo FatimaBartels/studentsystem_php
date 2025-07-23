@@ -1,8 +1,6 @@
 <?php
 declare(strict_types=1);
 
-
-
 require_once 'PuntenDataHandler.php';
 require_once 'ModulesDataHandler.php';
 
@@ -20,22 +18,15 @@ if (!$module) {
     die("Module niet gevonden.");
 }
 
-$punten = $puntenHandler->getPuntenByModuleId($moduleId);
+
+$punten = $puntenHandler->getPuntenVoorModule($moduleId);
+
 ?>
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/style.css">
-    <title>Punten per Module</title>
-</head>
-<body>
-
-    <div >
-        <h2>Module: <?= htmlspecialchars($module->getNaam()) ?></h2>
-        <div class="container">
+<link rel="stylesheet" href="css/style.css">
+<div>
+    <h2>Module: <?= $module->getNaam() ?> </h2>
+    <div class="container">
         <table>
             <thead>
                 <tr>
@@ -44,15 +35,13 @@ $punten = $puntenHandler->getPuntenByModuleId($moduleId);
                 </tr>
             </thead>
             <tbody>
-            <?php foreach ($punten as $punt): ?>
-                <tr>
-                    <td><?= htmlspecialchars($punt['student']) ?></td>
-                    <td><?= (int)$punt['punt'] ?></td>
-                </tr>
-            <?php endforeach; ?>
+                <?php foreach ($punten as $punt): ?> 
+                    <tr>
+                        <td><?= $punt->getPersoon()->getFamilienaam() ?> <?= $punt->getPersoon()->getVoornaam() ?> </td>
+                        <td><?= $punt->getPunt() ?></td>
+                    </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
-        </div>
     </div>
-</body>
-</html>
+</div>

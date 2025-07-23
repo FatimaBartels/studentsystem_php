@@ -2,11 +2,32 @@
 require_once 'PersonenDataHandler.php';
 require_once 'ModulesDataHandler.php';
 
+
 $persoonHandler = new PersonenDataHandler();
 $moduleHandler = new ModulesDataHandler();
 
 $studenten = $persoonHandler->getPersonenList();
 $modules = $moduleHandler->getModulesList();
+
+$mainContent = "<h2>Selecteer een student, module of actie</h2>";
+
+if (isset($_GET['persoonId'])) {
+    ob_start();
+    include 'punten-per-persoon.php';
+    $mainContent = ob_get_clean();
+} elseif (isset($_GET['moduleId'])) {
+    ob_start();
+    include 'punten-per-module.php';
+    $mainContent = ob_get_clean();
+} elseif (isset($_GET['form']) && $_GET['form'] === 'addPunt') {
+    ob_start();
+    include 'punt-form.php';
+    $mainContent = ob_get_clean();
+}
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -23,10 +44,10 @@ $modules = $moduleHandler->getModulesList();
   <div class="sidebar">
     <h2>STUDENTEN</h2>
     <ul>
-      <?php foreach ($studenten as $s): ?>
+      <?php foreach ($studenten as $student): ?>
         <li>
-          <a href="?persoonId=<?= $s->getId() ?>">
-            <?= htmlspecialchars($s->getVoornaam() . ' ' . $s->getFamilienaam()) ?>
+          <a href="?persoonId=<?= $student->getId() ?>">
+            <?= $student->getVoornaam() . ' ' . $student->getFamilienaam() ?>
           </a>
         </li>
       <?php endforeach; ?>
@@ -34,10 +55,10 @@ $modules = $moduleHandler->getModulesList();
 
     <h2>MODULES</h2>
     <ul>
-      <?php foreach ($modules as $m): ?>
+      <?php foreach ($modules as $module): ?>
         <li>
-          <a href="?moduleId=<?= $m->getId() ?>">
-            <?= htmlspecialchars($m->getNaam()) ?>
+          <a href="?moduleId=<?= $module->getId() ?>">
+            <?= $module->getNaam() ?>
           </a>
         </li>
       <?php endforeach; ?>
@@ -51,17 +72,9 @@ $modules = $moduleHandler->getModulesList();
 
   <div class="content" id="main-content">
     <div class="card">
-      <?php
-      if (isset($_GET['persoonId'])) {
-          include 'punten-per-persoon.php';
-      } elseif (isset($_GET['moduleId'])) {
-          include 'punten-per-module.php';
-      } elseif (isset($_GET['form']) && $_GET['form'] === 'addPunt') {
-          include 'punt-form.php';
-      } else {
-          echo "<h2>Selecteer een student, module of actie</h2>";
-      }
-      ?>
+
+      <?= $mainContent ?>
+
     </div>
   </div>
 

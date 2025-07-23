@@ -21,20 +21,18 @@ if (!$persoon) {
 }
 
 $punten = $puntenHandler->getPuntenByPersoonId($persoonId);
+
+
 ?>
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+
     <link rel="stylesheet" href="css/style.css">
-    <title>Punten per Student</title>
-</head>
-<body>
+   
+
 
     <div >
-        <h2>Student: <?= htmlspecialchars($persoon->getFamilienaam()) ?> <?= htmlspecialchars($persoon->getVoornaam()) ?></h2>
+        <h2>Student: <?= $persoon->getFamilienaam() ?> <?= $persoon->getVoornaam() ?> </h2>
     <div class="container">
             <table>
                 <thead>
@@ -45,9 +43,10 @@ $punten = $puntenHandler->getPuntenByPersoonId($persoonId);
                 </thead>
                 <tbody>
                 <?php foreach ($punten as $punt): ?>
+                    
                     <tr>
-                        <td><?= htmlspecialchars($punt->getModuleNaam()) ?></td>
-                        <td><?= (int)$punt->getPunt() ?></td>
+                        <td><?= $punt->getModule()->getNaam() ?></td>
+                        <td><?= $punt->getPunt() ?></td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
@@ -55,5 +54,3 @@ $punten = $puntenHandler->getPuntenByPersoonId($persoonId);
     </div>
     
     </div>
-</body>
-</html>
