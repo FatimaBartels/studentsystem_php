@@ -27,7 +27,7 @@ $punten = $puntenHandler->getPuntenByPersoonId($persoonId);
     <link rel="stylesheet" href="css/style.css"> 
 
     <div >
-        <h2>Student: <?= $persoon->getFamilienaam() ?> <?= $persoon->getVoornaam() ?> </h2>
+        <h2>Student: <?= $persoon->getFamilienaam() ?> <?= $persoon->getVoornaam() ?> </h2>       
     <div class="container">
             <table>
                 <thead>
@@ -38,6 +38,7 @@ $punten = $puntenHandler->getPuntenByPersoonId($persoonId);
                 </thead>
                 <tbody>
                 <?php foreach ($punten as $punt): ?>
+                   
                     
                     <tr>
                         <td><?= $punt->getModule()->getNaam() ?></td>
