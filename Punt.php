@@ -13,8 +13,6 @@ class Punt
     private ?PDO $dbh = null;
     
 
-  
-
     public function __construct(?int $moduleId, ?int $persoonId, ?int $punt)
     {
         $this->moduleId    = $moduleId;

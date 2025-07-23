@@ -22,14 +22,9 @@ if (!$persoon) {
 
 $punten = $puntenHandler->getPuntenByPersoonId($persoonId);
 
-
 ?>
 
-
-
-    <link rel="stylesheet" href="css/style.css">
-   
-
+    <link rel="stylesheet" href="css/style.css"> 
 
     <div >
         <h2>Student: <?= $persoon->getFamilienaam() ?> <?= $persoon->getVoornaam() ?> </h2>
