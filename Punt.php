@@ -2,6 +2,8 @@
 // Class Punt.php
 
 require_once "Persoon.php";
+require_once "Module.php";
+
 
 
 class Punt
